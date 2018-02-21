@@ -1,0 +1,17 @@
+.form-sm .form-control {
+    height: 35px;
+}
+
+.form-sm .btn {
+    font-size: 12px;
+}
+
+.page-link {
+    border: 1px solid rgba(200, 200, 200, 0.5);
+    color: #1dc7ea;
+}
+
+.page-item.active .page-link {
+    background-color: #1dc7ea;
+    border-color: #1dc7ea;
+}

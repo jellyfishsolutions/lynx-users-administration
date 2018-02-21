@@ -1,0 +1,47 @@
+{% extends resolvePath(settings.themeMasterPage) %}
+{% import resolvePath("/lynx/utils") as utils %}
+
+{% block additional_styles %}
+<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+<link rel="stylesheet" type="text/css" href="/users-admin/style.css">
+{% endblock %}
+
+
+{% block main_content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card strpied-tabled-with-hover">
+            <div class="card-header ">
+                <div class="d-flex justify-content-between">
+                    <h4 class="card-title">{{ "usra-users-edit-user-title" | tr}} </h4>
+                </div>
+            </div>
+            <div class="card-body">
+                <form action="{{route('usra-users-edit-do', {id:req.params.id})}}" method="POST">
+                    {{ utils.addInput("id", "usra-id" | tr, "text", "", old("id",user.id), "usra-id" | tr, errors, "readonly") }}
+                    {{ utils.addInput("email", "usra-email-address" | tr, "email", "email", old("email",user.email), "usra-email-address" | tr, errors) }}
+                    {{ utils.addInput("firstName", "usra-first-name" | tr, "text", "firstName", old("firstName",user.firstName), "usra-first-name" | tr, errors) }}
+                    {{ utils.addInput("lastName", "usra-last-name" | tr, "text", "lastName", old("lastName",user.lastName), "usra-last-name" | tr, errors) }}
+                    {{ utils.addInput("nickName", "usra-nick-name" | tr, "text", "nickName", old("nickName",user.nickName), "usra-nick-name" | tr, errors) }}
+                    {{ utils.addInput("password", "usra-password" | tr, "password", "password", null, "usra-password-or-leave-blank" | tr, errors, 'autocomplete="new-password"') }}
+                    <label class="mb-2">Roles</label>
+                    {% for role in roles %}
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="checkbox" {{ "checked" | safe if roleMap[role.id] }} name="roleMap" value="{{role.id}}" id="role-{{role.id}}">
+                                <span class="form-check-sign"></span>
+                                {{role.readableName if (role.readableName) else role.name}}
+                            </label>
+                        </div>
+                    {% endfor %}
+                    <button type="submit" class="btn btn-info">{{ "usra-edit" | tr }}</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+{% endblock %}

@@ -1,0 +1,104 @@
+{% extends resolvePath(settings.themeMasterPage) %}
+{% import resolvePath("/lynx/datatables") as datatable %}
+{% import resolvePath("/lynx/utils") as utils %}
+
+
+{% block additional_styles %}
+<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+<link rel="stylesheet" type="text/css" href="/users-admin/style.css">
+{% endblock %}
+
+{% block main_content %}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card strpied-tabled-with-hover">
+            <div class="card-header">
+                <div class="d-flex justify-content-between">
+                    <h4 class="card-title">{{ "usra-users-list-title" | tr}} <small>{{config.pagination.total}} {{"usra-results" | tr}}</small></h4>
+                    <div class="btn-group btn-group-sm justify-content-end" role="group">
+                        <a href="{{route('usra-users-edit', {id:0})}}" class="btn btn-secondary"><i class="fas fa-plus"></i></a>
+                    </div>
+                </div>
+                <form class="form-inline form-sm mt-2 mb-2" method="GET" action="{{config.urlNoFilter}}">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="filter" value="{{old('filter')}}" placeholder="{{ 'usra-users-filter-by' | tr }}" aria-describedby="basic-addon2">
+                    </div>
+                    <button type="submit" class="btn btn-secondary ml-2"><i class="fas fa-search"></i></button>
+                </form>
+                {{ utils.alert(flash) }}
+            </div>
+            <div class="card-body table-full-width table-responsive">
+                <table class="table table-hover table-striped">
+                    <thead>
+                        <th>{{ datatable.generateHeader("usra-id" | tr, 0, config)}}</th>
+                        <th>{{ datatable.generateHeader("usra-email" | tr, 1, config)}}</th>
+                        <th>{{ datatable.generateHeader("usra-name" | tr, 2, config)}}</th>
+                        <th>{{ datatable.generateHeader("usra-createdat" | tr, 5, config)}}</th>
+                        <th>{{"usra-roles" | tr}}</th>
+                        <th></th>
+                    </thead>
+                    <tbody>
+                        {% for user in config.table.data %}
+                            <tr>
+                                <td>{{user[0].text}}</td>
+                                <td>{{user[1].text}}</td>
+                                <td>{{user[2].text}} {{user[3].text}} {{ '('+user[4].text+')' if user[4].text }} </td>
+                                <td>{{user[5].text | date}} </td>
+                                <td>
+                                    {% for role in user[6].text %}
+                                        <span class="badge badge-pill badge-success">{{ role.readableName if role.readableName else role.name }}</span>
+                                    {% endfor %}
+                                </td>
+                                <td width="100%" class="justify-content-end">
+                                    <button type="button" data-toggle="modal" data-target="#deleteModal" data-name="{{user[1].text}} - {{user[2].text}} {{user[3].text}} {{ '('+user[4].text+')' if user[4].text }}" data-id="{{user[0].text}}" class="btn btn-sm btn-outline-danger btn-danger mr-2"><i class="far fa-trash-alt"></i></button>
+                                    <a href="{{route('usra-users-edit', {id:user[0].text})}}"  class="btn btn-sm btn-outline-primary"><i class="far fa-edit"></i> {{"usra-edit" | tr}}</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+                <nav>
+                    {{ datatable.pagination(config.pagination, config.urlNoPage)}}
+                </nav>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{"usra-delete-user" | tr}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          {{"usra-delete-msg" | tr}} <b><span class="user-name">Username</span></b>?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{"usra-btn-abort" | tr}}</button>
+        <a href="" class="delete-url btn btn-danger">{{ "usra-btn-delete" | tr}}</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+
+{% block additional_scripts %}
+<script>
+$('#deleteModal').on('show.bs.modal', function (event) {
+  var button = $(event.relatedTarget);
+  var id = button.data('id');
+  var userName = button.data('name');
+  var modal = $(this)
+  modal.find('.user-name').text(userName);
+  modal.find('.delete-url').attr("href", "{{route('usra-users-delete-do')}}?id="+id);
+})
+</script>
+{% endblock %}

@@ -1,0 +1,47 @@
+{
+    "usra-users-list-title": "Lista Utenti",
+    "usra-results": "Risultati",
+    "usra-users-filter-by": "Cerca...",
+    "usra-id": "ID",
+    "usra-email": "E-Mail",
+    "usra-name": "Nome",
+    "usra-nickname": "Nickname",
+    "usra-createdat": "Creato il",
+    "usra-roles": "Ruoli",
+    "usra-edit": "Modifica",
+
+    "usra-users-edit-user-title": "Modifica o Crea un Utente",
+    "usra-id": "ID",
+    "usra-email-address": "Indirizzo Email",
+    "usra-first-name": "Nome",
+    "usra-last-name": "Cognome",
+    "usra-nick-name": "Nickname",
+    "usra-password": "Password",
+    "usra-password-or-leave-blank":
+        "Password, lascia vuoto per non modificarla",
+    "usra_input_email": "L'indirizzo Email",
+    "usra_input_password": "Il campo Password",
+    "usra_input_firstName": "Il campo Nome",
+    "usra_input_lastName": "Il campo Cognome",
+    "usra_input_nickName": "Il campo Nickname",
+    "usra-empty-password": "Il nuovo Utente deve avere una password",
+
+    "usra-roles-list-title": "Lista Ruoli",
+    "usra-roles-name": "Nome",
+    "usra-roles-readablename": "Nome Leggibile",
+    "usra-roles-level": "Livello",
+    "usra-roles-description": "Descrizione",
+    "usra-roles-edit-role-title": "Modifica o Crea un Ruolo",
+    "usra_input_role_name": "Il campo Nome",
+    "usra_input_role_readablename": "Il campo Nome Leggibile",
+    "usra_input_role_level": "Il campo Livello",
+    "usra_input_role_description": "Il campo Descrizione",
+
+    "usra-delete-user": "Cancella Utente",
+    "usra-delete-msg": "Sei sicuro di voler cancellare",
+    "usra-btn-abort": "Annulla",
+    "usra-btn-delete": "Cancella",
+    "usra-delete-role": "Cancella Ruolo",
+
+    "usra-successful-edit": "Operazione Eseguita"
+}

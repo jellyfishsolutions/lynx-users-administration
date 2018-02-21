@@ -1,0 +1,36 @@
+{% extends resolvePath(settings.themeMasterPage) %}
+{% import resolvePath("/lynx/utils") as utils %}
+
+{% block additional_styles %}
+<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+<link rel="stylesheet" type="text/css" href="/users-admin/style.css">
+{% endblock %}
+
+
+{% block main_content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card strpied-tabled-with-hover">
+            <div class="card-header ">
+                <div class="d-flex justify-content-between">
+                    <h4 class="card-title">{{ "usra-roles-edit-role-title" | tr}} </h4>
+                </div>
+            </div>
+            <div class="card-body">
+                <form action="{{route('usra-roles-edit-do', {id:req.params.id})}}" method="POST">
+                    {{ utils.addInput("id", "usra-id" | tr, "text", "", old("id", role.id), "usra-id" | tr, errors, "readonly") }}
+                    {{ utils.addInput("name", "usra-roles-name" | tr, "text", "name", old("name",role.name), "usra-roles-name" | tr, errors) }}
+                    {{ utils.addInput("readableName", "usra-roles-readablename" | tr, "text", "readableName", old("readableName",role.readableName), "usra-roles-readablename" | tr, errors) }}
+                    {{ utils.addInput("description", "usra-roles-description" | tr, "text", "description", old("description",role.description), "usra-roles-description" | tr, errors) }}
+                    {{ utils.addInput("level", "usra-roles-level" | tr, "number", "level", old("level",role.level), "usra-roles-level" | tr, errors) }}
+                    <button type="submit" class="btn btn-info">{{ "usra-edit" | tr }}</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+{% endblock %}
