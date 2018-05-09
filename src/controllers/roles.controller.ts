@@ -55,7 +55,7 @@ export default class RolesController extends GenericController {
     async getEditRole(id: number, req: Request): Promise<Response> {
         let role;
         if (id != 0) {
-            role = await Role.getRepository().findOneById(id);
+            role = await Role.getRepository().findOne(id);
         } else {
             role = new Role();
         }
@@ -78,7 +78,7 @@ export default class RolesController extends GenericController {
         let c = this.context;
         let role;
         if (id != 0) {
-            role = await Role.getRepository().findOneById(id);
+            role = await Role.getRepository().findOne(id);
         } else {
             role = new Role();
         }
@@ -116,7 +116,7 @@ export default class RolesController extends GenericController {
                 await user.save();
             }
         }
-        await Role.getRepository().deleteById(id);
+        await Role.getRepository().delete(id);
         this.addSuccessMessagge("usra-successful-edit", req);
         return this.redirect("usra-roles-list");
     }

@@ -61,7 +61,7 @@ export default class UsersController extends GenericController {
     async getEditUser(id: number, req: Request): Promise<Response> {
         let user;
         if (id != 0) {
-            user = await User.getRepository().findOneById(id);
+            user = await User.getRepository().findOne(id);
         } else {
             user = new User();
             user.roles = [];
@@ -100,7 +100,7 @@ export default class UsersController extends GenericController {
         let c = this.context;
         let user;
         if (id != 0) {
-            user = await User.getRepository().findOneById(id);
+            user = await User.getRepository().findOne(id);
         } else {
             user = new User();
             user.roles = [];
@@ -177,7 +177,7 @@ export default class UsersController extends GenericController {
     @GET("/users/delete/")
     async deleteUser(req: Request): Promise<Response> {
         let id = req.query.id;
-        let user = (await User.findOneById(id)) as User;
+        let user = (await User.findOne(id)) as User;
         user.roles = [];
         await user.save();
         await user.remove();
