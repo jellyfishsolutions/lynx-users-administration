@@ -53,7 +53,7 @@ export default class UsersController extends GenericController {
         await dtConfig.fetchData(qb);
         c.config = dtConfig;
 
-        return this.render("users-admin/users-list", req, c);
+        return this.render(UserAdminModule.settings.usersListTemplate, req, c);
     }
 
     @Name("usra-users-edit")
@@ -86,7 +86,7 @@ export default class UsersController extends GenericController {
         c.user = user;
         c.roleMap = roleMap;
         c.roles = roles;
-        return this.render("users-admin/users-edit", req, c);
+        return this.render(UserAdminModule.settings.usersEditTemplate, req, c);
     }
 
     @Name("usra-users-edit-do")
@@ -139,7 +139,11 @@ export default class UsersController extends GenericController {
             c.roleMap = roleMap;
             c.roles = roles;
             c.errors = this.errorsToObject(u.errors, req);
-            return this.render("users-admin/users-edit", req, c);
+            return this.render(
+                UserAdminModule.settings.usersEditTemplate,
+                req,
+                c
+            );
         }
         user.email = u.obj.email;
         user.firstName = u.obj.firstName;
@@ -150,7 +154,11 @@ export default class UsersController extends GenericController {
             c.roleMap = roleMap;
             c.roles = roles;
             c.errors = { password: this.tr("usra-empty-password", req) };
-            return this.render("users-admin/users-edit", req, c);
+            return this.render(
+                UserAdminModule.settings.usersEditTemplate,
+                req,
+                c
+            );
         }
         if (u.obj.password) {
             let validatePassword = new ValidateObject<{ password: string }>(
@@ -163,7 +171,11 @@ export default class UsersController extends GenericController {
                 c.roleMap = roleMap;
                 c.roles = roles;
                 c.errors = this.errorsToObject(validatePassword.errors, req);
-                return this.render("users-admin/users-edit", req, c);
+                return this.render(
+                    UserAdminModule.settings.usersEditTemplate,
+                    req,
+                    c
+                );
             }
             user.password = await userLib.hashPassword(u.obj.password);
         }

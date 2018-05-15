@@ -47,7 +47,7 @@ export default class RolesController extends GenericController {
         await dtConfig.fetchData(qb);
         c.config = dtConfig;
 
-        return this.render("users-admin/roles-list", req, c);
+        return this.render(UserAdminModule.settings.rolesListTemplate, req, c);
     }
 
     @Name("usra-roles-edit")
@@ -64,7 +64,7 @@ export default class RolesController extends GenericController {
         }
         let c = this.context;
         c.role = role;
-        return this.render("users-admin/roles-edit", req, c);
+        return this.render(UserAdminModule.settings.rolesEditTemplate, req, c);
     }
 
     @Name("usra-roles-edit-do")
@@ -88,7 +88,11 @@ export default class RolesController extends GenericController {
         if (!r.isValid) {
             c.role = role;
             c.errors = this.errorsToObject(r.errors, req);
-            return this.render("users-admin/roles-edit", req, c);
+            return this.render(
+                UserAdminModule.settings.rolesEditTemplate,
+                req,
+                c
+            );
         }
 
         role.name = r.obj.name;
