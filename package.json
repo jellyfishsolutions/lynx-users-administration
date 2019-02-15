@@ -1,6 +1,6 @@
 {
     "name": "lynx-users-administration",
-    "version": "0.2.3",
+    "version": "0.3.0",
     "description": "Users administration module for the Lynx framework",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
@@ -12,27 +12,30 @@
     },
     "repository": {
         "type": "git",
-        "url":
-            "git+https://github.com/jellyfishsolutions/lynx-users-administration.git"
+        "url": "git+https://github.com/jellyfishsolutions/lynx-users-administration.git"
     },
-    "keywords": ["lynx", "administration", "users", "roles", "admin", "module"],
+    "keywords": [
+        "lynx",
+        "administration",
+        "users",
+        "roles",
+        "admin",
+        "module"
+    ],
     "author": "Luca Roverelli <luca.roverelli@gmail.com>",
     "license": "Apache-2.0",
     "bugs": {
-        "url":
-            "https://github.com/jellyfishsolutions/lynx-users-administration/issues"
+        "url": "https://github.com/jellyfishsolutions/lynx-users-administration/issues"
     },
-    "homepage":
-        "https://github.com/jellyfishsolutions/lynx-users-administration#readme",
+    "homepage": "https://github.com/jellyfishsolutions/lynx-users-administration#readme",
     "dependencies": {
-        "lynx-framework": "^0.5.1"
+        "lynx-framework": "^0.5.18"
     },
     "devDependencies": {
-        "gulp": "^3.9.1",
-        "gulp-clean": "^0.4.0",
-        "gulp-tsc": "^1.3.2",
-        "gulp-watch": "^5.0.0",
-        "run-sequence": "^2.2.0",
-        "typescript": "^2.5.3"
+        "del": "^3.0.0",
+        "gulp": "^4.0.0",
+        "gulp-typescript": "^5.0.0-alpha.3",
+        "merge2": "^1.2.2",
+        "typescript": "^2.9.2"
     }
 }
