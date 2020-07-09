@@ -1,6 +1,6 @@
 {
     "name": "lynx-users-administration",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "description": "Users administration module for the Lynx framework",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
@@ -29,7 +29,7 @@
     },
     "homepage": "https://github.com/jellyfishsolutions/lynx-users-administration#readme",
     "dependencies": {
-        "lynx-framework": "^1.0.1"
+        "lynx-framework": "^1.1.5"
     },
     "devDependencies": {
         "del": "^5.1.0",

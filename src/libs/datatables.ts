@@ -146,7 +146,7 @@ export class DatatableConfiguration {
                 continue;
             }
             if (this.req.query[q] instanceof Array) {
-                return this.req.query[q];
+                return this.req.query[q] as any;
             }
             return [this.req.query[q]];
         }

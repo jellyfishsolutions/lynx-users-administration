@@ -100,14 +100,14 @@ export default class RolesController extends GenericController {
         role.description = r.obj.description;
         role.level = r.obj.level;
         await role.save();
-        this.addSuccessMessagge("usra-successful-edit", req);
+        this.addSuccessMessage("usra-successful-edit", req);
         return this.redirect("usra-roles-list");
     }
 
     @Name("usra-roles-delete-do")
     @GET("/roles/delete/")
     async deleteRole(req: Request): Promise<Response> {
-        let id = req.query.id;
+        let id = Number(req.query.id as string);
         let users = await User.getRepository()
             .createQueryBuilder("user")
             .leftJoinAndSelect("user.roles", "role")
@@ -121,7 +121,7 @@ export default class RolesController extends GenericController {
             }
         }
         await Role.getRepository().delete(id);
-        this.addSuccessMessagge("usra-successful-edit", req);
+        this.addSuccessMessage("usra-successful-edit", req);
         return this.redirect("usra-roles-list");
     }
 }

@@ -181,19 +181,19 @@ export default class UsersController extends GenericController {
         }
 
         await user.save();
-        this.addSuccessMessagge("usra-successful-edit", req);
+        this.addSuccessMessage("usra-successful-edit", req);
         return this.redirect("usra-users-list");
     }
 
     @Name("usra-users-delete-do")
     @GET("/users/delete/")
     async deleteUser(req: Request): Promise<Response> {
-        let id = req.query.id;
+        let id = Number(req.query.id as string);
         let user = (await User.findOne(id)) as User;
         user.roles = [];
         await user.save();
         await user.remove();
-        this.addSuccessMessagge("usra-successful-edit", req);
+        this.addSuccessMessage("usra-successful-edit", req);
         return this.redirect("usra-users-list");
     }
 }
