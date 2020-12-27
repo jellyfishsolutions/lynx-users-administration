@@ -1,21 +1,12 @@
-import * as Joi from "@hapi/joi";
+import * as Joi from 'joi';
 
 export const editSchema = Joi.object().keys({
-    email: Joi.string()
-        .email()
-        .required()
-        .label("{{usra_input_email}}"),
-    firstName: Joi.string()
-        .min(2)
-        .required()
-        .label("{{usra_input_firstName}}"),
-    lastName: Joi.string()
-        .min(2)
-        .required()
-        .label("{{usra_input_lastName}}"),
-    nickName: Joi.string().label("{{usra_input_nickName}}"),
+    email: Joi.string().email().required().label('{{usra_input_email}}'),
+    firstName: Joi.string().min(2).required().label('{{usra_input_firstName}}'),
+    lastName: Joi.string().min(2).required().label('{{usra_input_lastName}}'),
+    nickName: Joi.string().label('{{usra_input_nickName}}'),
     password: Joi.any(),
-    roleMap: Joi.any()
+    roleMap: Joi.any(),
 });
 
 export const passwordSchema = Joi.object().keys({
@@ -23,25 +14,22 @@ export const passwordSchema = Joi.object().keys({
         .required()
         .min(4)
         .regex(/^[a-zA-Z0-9]{3,30}$/)
-        .label("{{usra_input_password}}")
+        .label('{{usra_input_password}}'),
 });
 
 export const roleSchema = Joi.object().keys({
-    name: Joi.string()
-        .min(3)
-        .required()
-        .label("{{usra_input_role_name}}"),
+    name: Joi.string().min(3).required().label('{{usra_input_role_name}}'),
     readableName: Joi.string()
         .min(3)
         .required()
-        .label("{{usra_input_role_readablename}}"),
+        .label('{{usra_input_role_readablename}}'),
     description: Joi.string()
         .optional()
-        .allow("")
-        .label("{{usra_input_role_description}}"),
+        .allow('')
+        .label('{{usra_input_role_description}}'),
     level: Joi.number()
         .integer()
         .min(0)
         .required()
-        .label("{{usra_input_role_level}}")
+        .label('{{usra_input_role_level}}'),
 });

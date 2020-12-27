@@ -1,52 +1,52 @@
-import Request from "lynx-framework/request";
-import Response from "lynx-framework/lynx/response";
-import { Route, GET, POST, Body, Name } from "lynx-framework/decorators";
-import User from "lynx-framework/entities/user.entity";
-import Role from "lynx-framework/entities/role.entity";
-import * as userLib from "lynx-framework/libs/users";
-import { ValidateObject } from "lynx-framework/validate-object";
-import { DatatableConfiguration } from "lynx-framework/datatables";
+import Request from 'lynx-framework/request';
+import Response from 'lynx-framework/lynx/response';
+import { Route, GET, POST, Body, Name } from 'lynx-framework/decorators';
+import User from 'lynx-framework/entities/user.entity';
+import Role from 'lynx-framework/entities/role.entity';
+import * as userLib from 'lynx-framework/libs/users';
+import { ValidateObject } from 'lynx-framework/validate-object';
+import { DatatableConfiguration } from 'lynx-framework/datatables';
 
-import UserAdminModule from "../index";
-import { editSchema, passwordSchema } from "../validations/users";
+import UserAdminModule from '../index';
+import { editSchema, passwordSchema } from '../validations/users';
 
-import { GenericController, isNumber } from "../libs/generic.controller";
+import { GenericController, isNumber } from '../libs/generic.controller';
 
 @Route(UserAdminModule.settings.moduleRoot)
 export default class UsersController extends GenericController {
-    @Name("usra-users-list")
-    @GET("/users")
+    @Name('usra-users-list')
+    @GET('/users')
     async getUsers(req: Request): Promise<Response> {
         let c = this.context;
 
         let dtConfig = new DatatableConfiguration(User.getRepository(), req);
-        dtConfig.addTableHeader("id");
-        dtConfig.addTableHeader("email");
-        dtConfig.addTableHeader("firstName");
-        dtConfig.addTableHeader("lastName");
-        dtConfig.addTableHeader("nickName");
-        dtConfig.addTableHeader("roles");
+        dtConfig.addTableHeader('id');
+        dtConfig.addTableHeader('email');
+        dtConfig.addTableHeader('firstName');
+        dtConfig.addTableHeader('lastName');
+        dtConfig.addTableHeader('nickName');
+        dtConfig.addTableHeader('roles');
         dtConfig.addDataMap([
-            "id",
-            "email",
-            "firstName",
-            "lastName",
-            "nickName",
-            "createdAt",
-            "roles"
+            'id',
+            'email',
+            'firstName',
+            'lastName',
+            'nickName',
+            'createdAt',
+            'roles',
         ]);
 
         let qb = User.getRepository()
-            .createQueryBuilder("e")
-            .leftJoinAndSelect("e.roles", "roles");
+            .createQueryBuilder('e')
+            .leftJoinAndSelect('e.roles', 'roles');
         if (req.query.filter) {
             let filter = (req.query.filter as string).toLowerCase();
             if (isNumber(filter)) {
-                qb = qb.where("e.id = :filter", { filter: filter });
+                qb = qb.where('e.id = :filter', { filter: filter });
             } else {
                 qb = qb.where(
-                    "e.email LIKE :filter OR e.firstName LIKE :filter OR e.lastName LIKE :filter OR e.nickName LIKE :filter",
-                    { filter: "%" + filter + "%" }
+                    'e.email LIKE :filter OR e.firstName LIKE :filter OR e.lastName LIKE :filter OR e.nickName LIKE :filter',
+                    { filter: '%' + filter + '%' }
                 );
             }
         }
@@ -56,8 +56,8 @@ export default class UsersController extends GenericController {
         return this.render(UserAdminModule.settings.usersListTemplate, req, c);
     }
 
-    @Name("usra-users-edit")
-    @GET("/users/edit/:id")
+    @Name('usra-users-edit')
+    @GET('/users/edit/:id')
     async getEditUser(id: number, req: Request): Promise<Response> {
         let user;
         if (id != 0) {
@@ -67,7 +67,7 @@ export default class UsersController extends GenericController {
             user.roles = [];
         }
         if (!user) {
-            throw new Error("404");
+            throw new Error('404');
         }
         let roles = (await Role.getRepository().find()) as Role[];
         let roleMap: any = {};
@@ -89,9 +89,9 @@ export default class UsersController extends GenericController {
         return this.render(UserAdminModule.settings.usersEditTemplate, req, c);
     }
 
-    @Name("usra-users-edit-do")
-    @Body("u", editSchema)
-    @POST("/users/edit/:id")
+    @Name('usra-users-edit-do')
+    @Body('u', editSchema)
+    @POST('/users/edit/:id')
     async saveEditUser(
         id: number,
         u: ValidateObject<User>,
@@ -106,7 +106,7 @@ export default class UsersController extends GenericController {
             user.roles = [];
         }
         if (!user) {
-            throw new Error("404");
+            throw new Error('404');
         }
         let roles = (await Role.getRepository().find()) as Role[];
         let currentRoleMap = req.body.roleMap;
@@ -153,7 +153,7 @@ export default class UsersController extends GenericController {
             c.user = user;
             c.roleMap = roleMap;
             c.roles = roles;
-            c.errors = { password: this.tr("usra-empty-password", req) };
+            c.errors = { password: this.tr('usra-empty-password', req) };
             return this.render(
                 UserAdminModule.settings.usersEditTemplate,
                 req,
@@ -181,19 +181,19 @@ export default class UsersController extends GenericController {
         }
 
         await user.save();
-        this.addSuccessMessage("usra-successful-edit", req);
-        return this.redirect("usra-users-list");
+        this.addSuccessMessage('usra-successful-edit', req);
+        return this.redirect('usra-users-list');
     }
 
-    @Name("usra-users-delete-do")
-    @GET("/users/delete/")
+    @Name('usra-users-delete-do')
+    @GET('/users/delete/')
     async deleteUser(req: Request): Promise<Response> {
         let id = Number(req.query.id as string);
         let user = (await User.findOne(id)) as User;
         user.roles = [];
         await user.save();
         await user.remove();
-        this.addSuccessMessage("usra-successful-edit", req);
-        return this.redirect("usra-users-list");
+        this.addSuccessMessage('usra-successful-edit', req);
+        return this.redirect('usra-users-list');
     }
 }
