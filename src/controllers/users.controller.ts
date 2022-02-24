@@ -109,7 +109,7 @@ export default class UsersController extends GenericController {
             throw new Error('404');
         }
         let roles = (await Role.getRepository().find()) as Role[];
-        let currentRoleMap = req.body.roleMap;
+        let currentRoleMap = req.body.roleMap || [];
         if (currentRoleMap && !(currentRoleMap instanceof Array)) {
             currentRoleMap = [currentRoleMap];
         }

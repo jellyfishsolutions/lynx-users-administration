@@ -4,7 +4,7 @@ export const editSchema = Joi.object().keys({
     email: Joi.string().email().required().label('{{usra_input_email}}'),
     firstName: Joi.string().min(2).required().label('{{usra_input_firstName}}'),
     lastName: Joi.string().min(2).required().label('{{usra_input_lastName}}'),
-    nickName: Joi.string().label('{{usra_input_nickName}}'),
+    nickName: Joi.string().allow('').label('{{usra_input_nickName}}'),
     password: Joi.any(),
     roleMap: Joi.any(),
 });
