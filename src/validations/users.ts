@@ -1,4 +1,5 @@
 import * as Joi from 'joi';
+import UsersAdminModule from '..';
 
 export const editSchema = Joi.object().keys({
     email: Joi.string().email().required().label('{{usra_input_email}}'),
@@ -13,7 +14,7 @@ export const passwordSchema = Joi.object().keys({
     password: Joi.string()
         .required()
         .min(4)
-        .regex(/^[a-zA-Z0-9]{3,30}$/)
+        .regex(UsersAdminModule.settings.regexPassword)
         .label('{{usra_input_password}}'),
 });
 
